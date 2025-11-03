@@ -7,6 +7,8 @@
   </a>
 </div>
 
+[Русский](README.RUS.md)
+
 # vv-ddl-gen
 **vv-ddl-gen** is a utility for generating DDL scripts and data population scripts for Oracle databases (support for PostgreSQL and MSSQL is planned). The utility allows you to flexibly configure which objects and data to export, and supports both full and partial table data extraction.
 
