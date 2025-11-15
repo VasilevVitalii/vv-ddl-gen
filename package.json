@@ -1,20 +1,19 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "vv-ddl-gen",
     "module": "src/index.ts",
     "type": "module",
     "private": true,
     "devDependencies": {
         "@types/bun": "latest",
-        "@types/oracledb": "^6.10.0"
-    },
-    "peerDependencies": {
-        "typescript": "^5"
+        "@types/oracledb": "^6.10.0",
+        "typescript": "^5.9.3"
     },
     "scripts": {
         "debug": "bun run debug/index.ts",
         "build:linux": "bun build src/index.ts --compile --outfile dist/vv-ddl-gen && chmod +x dist/vv-ddl-gen",
-        "build:win": "bun build src/index.ts --compile --outfile dist/vv-ddl-gen.exe"
+        "build:win": "bun build src/index.ts --compile --outfile dist/vv-ddl-gen.exe",
+        "buildjs": "node_modules/.bin/tsc --outDir distjs"
     },
     "dependencies": {
         "@sinclair/typebox": "^0.34.41",
@@ -24,6 +23,6 @@
         "minimist": "^1.2.8",
         "oracledb": "^6.10.0",
         "sql-formatter": "^15.6.10",
-        "vv-config-jsonc": "^1.0.0"
+        "vv-config-jsonc": "^1.0.1"
     }
 }
