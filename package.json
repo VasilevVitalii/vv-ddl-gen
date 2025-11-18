@@ -1,5 +1,5 @@
 {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "name": "vv-ddl-gen",
     "module": "src/index.ts",
     "type": "module",
