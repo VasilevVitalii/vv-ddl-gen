@@ -1,11 +1,13 @@
 import minimist from 'minimist'
-import { version } from '../package.json'
 import { ConfigGerenate, ConfigRead, EDdlKind } from './config'
 import { resolve } from 'path'
 import { Go } from './go'
 import { secret } from './util/crypt'
+import { VERSION } from '../package-version.js'
 
-const args = minimist(Bun.argv.slice(2))
+// Support both Bun and Node.js
+const argv = typeof Bun !== 'undefined' ? Bun.argv : process.argv
+const args = minimist(argv.slice(2))
 
 if (args['conf-use']) {
 	const confUseParam = args['conf-use']
@@ -43,10 +45,10 @@ if (args['conf-use']) {
 	onHelp()
 }
 
-function onHelp() {
+async function onHelp() {
 	console.log(
 		[
-			`vv-ddl-gen, version ${version}`,
+			`vv-ddl-gen, version ${VERSION}`,
 			`A utility for generating DDL and data scripts for Oracle.`,
 			``,
 			`Usage modes:`,
