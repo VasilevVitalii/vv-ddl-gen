@@ -26,7 +26,7 @@ export async function GoOra(logger: Logger, config: TConfigOra): Promise<void> {
 			`DBMS_METADATA.SET_TRANSFORM_PARAM(DBMS_METADATA.SESSION_TRANSFORM, 'CONSTRAINTS_AS_ALTER', FALSE);`,
 			`DBMS_METADATA.SET_TRANSFORM_PARAM(DBMS_METADATA.SESSION_TRANSFORM, 'STORAGE', ${config.objects.table.allowStorage ? 'TRUE' : 'FALSE'});`,
 			`DBMS_METADATA.SET_TRANSFORM_PARAM(DBMS_METADATA.SESSION_TRANSFORM, 'TABLESPACE', ${config.objects.table.allowTablespace ? 'TRUE' : 'FALSE'});`,
-			`DBMS_METADATA.SET_TRANSFORM_PARAM(DBMS_METADATA.SESSION_TRANSFORM, 'BODY', ${config.objects.package_body.dir ? 'FALSE' : 'TRUE'});`,
+			`DBMS_METADATA.SET_TRANSFORM_PARAM(DBMS_METADATA.SESSION_TRANSFORM, 'BODY', ${config.objects.package_body.dir || config.objects.type_body.dir ? 'FALSE' : 'TRUE'});`,
 			`END;`,
 		].join('\n'),
 	)
@@ -113,7 +113,7 @@ export async function GoOra(logger: Logger, config: TConfigOra): Promise<void> {
 				actualText = actualText.slice(0, -1)
 				actualText = trim(actualText)
 			}
-			if (['TABLE', 'VIEW', 'INDEX', 'SEQUENCE', 'JOB'].includes(object.kind)) {
+			if (['TABLE', 'VIEW', 'MATERIALIZED_VIEW', 'INDEX', 'SEQUENCE', 'JOB'].includes(object.kind)) {
 				actualText = format(actualText, { language: 'plsql' })
 				actualText = trim(actualText)
 			}

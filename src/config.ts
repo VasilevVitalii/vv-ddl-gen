@@ -28,11 +28,14 @@ export const SConfigOra = Type.Object({
 		}),
 		table: Type.Object({
 			dir: Type.Optional(Type.String({ description: 'path template for storing table DDL scripts; supports placeholders {{schema}} and {{table}}', default: 'path/to/ddl/{{schema}}/TABLE/{{schema}}.TBL.{{table}}.sql' })),
-			allowStorage: Type.Boolean({ description: 'if true, include STORAGE parameters (INITIAL, NEXT, MINEXTENTS, etc.) in the table DDL', default: false }),
-			allowTablespace: Type.Boolean({ description: 'if true, include TABLESPACE clause in the table DDL', default: false }),
+			allowStorage: Type.Boolean({ description: 'if true, include STORAGE parameters (INITIAL, NEXT, MINEXTENTS, etc.) in the table DDL (also use for [materialized view])', default: false }),
+			allowTablespace: Type.Boolean({ description: 'if true, include TABLESPACE clause in the table DDL (also use for [materialized view])', default: false }),
 		}),
 		view: Type.Object({
 			dir: Type.Optional(Type.String({ description: 'path template for storing view DDL scripts; supports placeholders {{schema}} and {{view}}', default: 'path/to/ddl/{{schema}}/VIEW/{{schema}}.VIE.{{view}}.sql' })),
+		}),
+		materialized_view: Type.Object({
+			dir: Type.Optional(Type.String({ description: 'path template for storing materialized view DDL scripts; supports placeholders {{schema}} and {{materialized_view}}', default: 'path/to/ddl/{{schema}}/MVIEW/{{schema}}.MVW.{{materialized_view}}.sql' })),
 		}),
 		index: Type.Object({
 			dir: Type.Optional(Type.String({ description: 'path template for storing index DDL scripts; supports placeholders {{schema}}, {{table}} and {{index}}', default: 'path/to/ddl/{{schema}}/INDEX/{{schema}}.TBL.{{table}}.IDX.{{index}}.sql' })),
@@ -59,6 +62,14 @@ export const SConfigOra = Type.Object({
 		}),
 		type: Type.Object({
 			dir: Type.Optional(Type.String({ description: 'path template for storing type DDL scripts; supports placeholders {{schema}} and {{type}}', default: 'path/to/ddl/{{schema}}/TYPE/{{schema}}.TYP.{{type}}.sql' })),
+		}),
+		type_body: Type.Object({
+			dir: Type.Optional(
+				Type.String({
+					description: 'path template for storing type body DDL scripts; If not set, spec and body are stored in one file; supports placeholders {{schema}} and {{type_body}}',
+					default: 'path/to/ddl/{{schema}}/TYPEBODY/{{schema}}.TYB.{{type_body}}.sql',
+				}),
+			),
 		}),
 		sequence: Type.Object({
 			dir: Type.Optional(Type.String({ description: 'path template for storing sequence DDL scripts; supports placeholders {{schema}} and {{sequence}}', default: 'path/to/ddl/{{schema}}/SEQUENCE/{{schema}}.SEQ.{{sequence}}.sql' })),

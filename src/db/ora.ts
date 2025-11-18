@@ -120,18 +120,32 @@ async function clobToString(clob: any): Promise<string> {
 	})
 }
 
-async function replaceClobs(obj: any): Promise<any> {
-	if (Array.isArray(obj)) {
-		return Promise.all(obj.map(replaceClobs))
+async function replaceClobs(obj: any, visited = new WeakSet()): Promise<any> {
+	if (obj === null || obj === undefined) {
+		return obj
 	}
-	if (obj && typeof obj === 'object') {
+	if (Array.isArray(obj)) {
+		if (visited.has(obj)) {
+			return '[Circular]'
+		}
+		visited.add(obj)
+		return Promise.all(obj.map(item => replaceClobs(item, visited)))
+	}
+	if (typeof obj === 'object') {
+		if (visited.has(obj)) {
+			return '[Circular]'
+		}
+		if (typeof (obj as any).pipe === 'function') {
+			return await clobToString(obj)
+		}
+		visited.add(obj)
 		const entries = await Promise.all(
 			Object.entries(obj).map(async ([key, value]) => {
-				if (value && typeof value === 'object' && typeof (value as any).pipe === 'function') {
-					return [key, await clobToString(value)]
+				if (value === null || value === undefined) {
+					return [key, value]
 				}
 				if (typeof value === 'object') {
-					return [key, await replaceClobs(value)]
+					return [key, await replaceClobs(value, visited)]
 				}
 				return [key, value]
 			}),

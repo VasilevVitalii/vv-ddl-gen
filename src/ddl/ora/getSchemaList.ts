@@ -58,13 +58,17 @@ export async function getSchemaList(server: DbOra, config: TConfigOra): Promise<
 	})
 	const schemaListScriptFilter = `'${schemaList.map(m => m.name).join(`','`)}'`
 
-	const ignoreObjectKind = config.objects.package_body.dir ? `'INDEX'` : `'INDEX','PACKAGE BODY'`
+	const ignoreObjectKindList = [`'INDEX'`]
+	if (!config.objects.package_body.dir) ignoreObjectKindList.push(`'PACKAGE BODY'`)
+	if (!config.objects.type_body.dir) ignoreObjectKindList.push(`'TYPE BODY'`)
+	const ignoreObjectKind = ignoreObjectKindList.join(',')
 
 	const resExecAllObjects = await server.exec<{ OWNER: string; OBJECT_TYPE: string; OBJECT_NAME: string }[]>(
 		[
 			`SELECT OWNER, REPLACE(OBJECT_TYPE,' ','_') AS OBJECT_TYPE, OBJECT_NAME`,
 			`FROM ALL_OBJECTS`,
 			`WHERE TEMPORARY = 'N' AND STATUS = 'VALID' AND OBJECT_TYPE NOT IN (${ignoreObjectKind}) AND OWNER IN (${schemaListScriptFilter})`,
+			`AND OBJECT_NAME NOT LIKE 'SYS_IOT_OVER_%' AND OBJECT_NAME NOT LIKE 'SYS_IL%' AND OBJECT_NAME NOT LIKE 'SYS_PLSQL_%' AND OBJECT_NAME NOT LIKE 'BIN$%'`,
 			`ORDER BY`,
 			`CASE WHEN OBJECT_TYPE = 'TABLE' THEN 1 ELSE 2 END,`,
 			`CASE WHEN OBJECT_TYPE = 'VIEW' THEN 1 ELSE 2 END,`,

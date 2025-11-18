@@ -23,6 +23,19 @@ export async function getTableFill(server: DbOra, schema: string, table: TTableF
 			const val = row[column]
 			if (val === null || val === undefined) return 'NULL'
 			if (typeof val === 'number' || typeof val === 'boolean' || typeof val === 'bigint') return val
+			if (val instanceof Date) {
+				const year = val.getFullYear()
+				const month = String(val.getMonth() + 1).padStart(2, '0')
+				const day = String(val.getDate()).padStart(2, '0')
+				const hours = String(val.getHours()).padStart(2, '0')
+				const minutes = String(val.getMinutes()).padStart(2, '0')
+				const seconds = String(val.getSeconds()).padStart(2, '0')
+				const milliseconds = String(val.getMilliseconds()).padStart(3, '0')
+				if (hours === '00' && minutes === '00' && seconds === '00' && milliseconds === '000') {
+					return `TO_DATE('${year}-${month}-${day}','YYYY-MM-DD')`
+				}
+				return `TO_TIMESTAMP('${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}','YYYY-MM-DD HH24:MI:SS.FF3')`
+			}
 			return `'${val.toString().replace(/'/g, "''")}'`
 		})
 		return `SELECT ${values.join(', ')} FROM DUAL`
