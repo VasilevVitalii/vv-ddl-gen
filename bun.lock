@@ -11,7 +11,7 @@
         "minimist": "^1.2.8",
         "oracledb": "^6.10.0",
         "sql-formatter": "^15.6.10",
-        "vv-config-jsonc": "^1.0.4",
+        "vv-config-jsonc": "^1.0.5",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -128,6 +128,6 @@
 
     "universalify": ["universalify@2.0.1", "", {}, "sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw=="],
 
-    "vv-config-jsonc": ["vv-config-jsonc@1.0.4", "", { "dependencies": { "@sinclair/typebox": "^0.34.41", "jsonc-parser": "^3.3.1" } }, "sha512-LZBrIBxPuBseVW9X0Q9DAfevS9n5oDpbL2YeOyz5Tdt9002t7Wb/RVyHcnIpsq+xTg/PANXhPs/x83wq9ciESw=="],
+    "vv-config-jsonc": ["vv-config-jsonc@1.0.5", "", { "dependencies": { "@sinclair/typebox": "^0.34.41", "jsonc-parser": "^3.3.1" } }, "sha512-MxdkOjV4sfdIi8F5RQgYvjFzTr0rhE9BMAkQ28p8SMZeoScRMSyK8nLEjEZNOCK/HqUxPgwkm6pDfTGdDDtNWQ=="],
   }
 }

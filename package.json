@@ -1,5 +1,5 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "name": "vv-ddl-gen",
     "module": "src/index.ts",
     "type": "module",
@@ -25,6 +25,6 @@
         "minimist": "^1.2.8",
         "oracledb": "^6.10.0",
         "sql-formatter": "^15.6.10",
-        "vv-config-jsonc": "^1.0.4"
+        "vv-config-jsonc": "^1.0.5"
     }
 }

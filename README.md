@@ -59,15 +59,15 @@ vv-ddl-gen --conf-use ./vv-ddl-get.config.TEMPLATE.ORA.jsonc
     * The "log" subdirectory contains the utility's log output
     * The "ddl" subdirectory contains the generated scripts
 
-## Important Notes and Nuances
+## Important Notes
 
 1. #### Disabling generation via dir = null
 In each config section (e.g., table, view, index, etc.), the dir parameter defines the path for saving the corresponding scripts. If you set dir to null, generation for that object type will be completely disabled. This is useful if you want to exclude, for example, indexes or triggers from export.
 
-2. #### Special behavior for the package_body section
-In the package_body section, the dir parameter works differently:
-* If dir is set, the package body is saved to a separate file.
-* If dir is null, the package body is appended to the same file as the package spec, provided that package spec generation (package.dir) is enabled.
+2. #### Special behavior for the package_body and the type_body sections
+In this sections, the dir parameter works differently:
+* If dir is set, the body is saved to a separate file.
+* If dir is null, the package body is appended to the same file as the head (if head generation is enabled).
 
 3. #### Priority of full and demo table data population
 If a table is listed in table_fill_full.list, a demo script for it will not be generated in the table_fill_demo section.

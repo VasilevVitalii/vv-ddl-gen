@@ -5,17 +5,16 @@ export function getDir(object: TObjectOra, schema: TSchemaOra, dirList: Record<s
 	let dir = dirList[object.kind]
 	if (!dir) return { error: 'empty dir', ok: false }
 
-	dir = dir.replaceAll(`{{schema}}`, schema.name)
-	dir = dir.replaceAll(`{{${object.kind.toLowerCase()}}}`, object.name)
-	if (object.kind === 'TABLE_FILL_FULL' || object.kind === 'TABLE_FILL_DEMO') {
-		dir = dir.replaceAll(`{{table}}`, object.name)
-	}
+	dir = dir.replaceAll(`{{schema-name}}`, schema.name)
+	dir = dir.replaceAll(`{{object-name}}`, object.name)
 
-	schema.linkList
-		.filter(f => f.kind === object.kind && f.name === object.name)
-		.forEach(item => {
-			dir = dir!.replaceAll(`{{${item.parentKind.toLowerCase()}}}`, item.parentName)
-		})
+	if (object.kind === 'INDEX') {
+		schema.linkList
+			.filter(f => f.kind === 'INDEX' && f.name === object.name && f.parentKind === 'TABLE')
+			.forEach(item => {
+				dir = dir!.replaceAll(`{{parent-name}}`, item.parentName)
+			})
+	}
 
 	const matchNonUseReplace = Array.from(dir.matchAll(/{{[^}]+}}/g)).map(m => m[0])
 	const matchNonUseReplaceUniq = Array.from(new Set(matchNonUseReplace))

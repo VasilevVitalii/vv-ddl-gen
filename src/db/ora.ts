@@ -131,6 +131,12 @@ async function replaceClobs(obj: any, visited = new WeakSet()): Promise<any> {
 		visited.add(obj)
 		return Promise.all(obj.map(item => replaceClobs(item, visited)))
 	}
+	if (obj instanceof Date) {
+		if (visited.has(obj)) {
+			return '[Circular]'
+		}
+		return obj
+	}
 	if (typeof obj === 'object') {
 		if (visited.has(obj)) {
 			return '[Circular]'

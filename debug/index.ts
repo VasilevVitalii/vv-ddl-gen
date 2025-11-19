@@ -24,50 +24,58 @@ Go({
 				list: [],
 				mode: EUseMode.EXCEPT,
 			},
-			table: {
-				dir: './debug/ddl/{{schema}}/TABLE/{{schema}}.TBL.{{table}}.sql',
+			storage: {
 				allowStorage: true,
 				allowTablespace: true,
 			},
+			table: {
+				dir: './debug/ddl/{{schema-name}}/TABLE/{{schema-name}}.TBL.{{object-name}}.sql',
+			},
 			view: {
-				dir: './debug/ddl/{{schema}}/VIEW/{{schema}}.VIE.{{view}}.sql',
+				dir: './debug/ddl/{{schema-name}}/VIEW/{{schema-name}}.VIE.{{object-name}}.sql',
+			},
+			mview: {
+				dir: './debug/ddl/{{schema-name}}/MVIEW/{{schema-name}}.VIE.{{object-name}}.sql',
 			},
 			index: {
-				dir: './debug/ddl/{{schema}}/INDEX/{{schema}}.TBL.{{table}}.IDX.{{index}}.sql',
+				dir: './debug/ddl/{{schema-name}}/INDEX/{{schema-name}}.TBL.{{parent-name}}.IDX.{{object-name}}.sql',
 			},
 			trigger: {
-				dir: './debug/ddl/{{schema}}/TRIGGER/{{schema}}.TRG.{{trigger}}.sql',
+				dir: './debug/ddl/{{schema-name}}/TRIGGER/{{schema-name}}.TRG.{{object-name}}.sql',
 			},
 			package: {
-				dir: './debug/ddl/{{schema}}/PACKAGE/{{schema}}.PHD.{{package}}.sql',
+				dir: './debug/ddl/{{schema-name}}/PACKAGE/{{schema-name}}.PHD.{{object-name}}.sql',
 			},
 			package_body: {
 				dir: undefined, // './debug/ddl/{{schema}}/PACKAGEBODY/{{schema}}.PBY.{{package_body}}.sql',
 			},
 			procedure: {
-				dir: './debug/ddl/{{schema}}/PROCEDURE/{{schema}}.PRC.{{procedure}}.sql',
+				dir: './debug/ddl/{{schema-name}}/PROCEDURE/{{schema-name}}.PRC.{{object-name}}.sql',
 			},
 			function: {
-				dir: './debug/ddl/{{schema}}/FUNCTION/{{schema}}.FUN.{{function}}.sql',
+				dir: './debug/ddl/{{schema-name}}/FUNCTION/{{schema-name}}.FUN.{{object-name}}.sql',
 			},
 			type: {
-				dir: './debug/ddl/{{schema}}/TYPE/{{schema}}.TYP.{{type}}.sql',
+				dir: './debug/ddl/{{schema-name}}/TYPE/{{schema-name}}.TYP.{{object-name}}.sql',
+			},
+			type_body: {
+				dir: './debug/ddl/{{schema-name}}/TYPE/{{schema-name}}.TYB.{{object-name}}.sql',
 			},
 			sequence: {
-				dir: './debug/ddl/{{schema}}/SEQUENCE/{{schema}}.SEQ.{{sequence}}.sql',
+				dir: './debug/ddl/{{schema-name}}/SEQUENCE/{{schema-name}}.SEQ.{{object-name}}.sql',
 			},
 			synonym: {
-				dir: './debug/ddl/{{schema}}/SYNONYM/{{schema}}.SYN.{{synonym}}.sql',
+				dir: './debug/ddl/{{schema-name}}/SYNONYM/{{schema-name}}.SYN.{{object-name}}.sql',
 			},
 			job: {
-				dir: './debug/ddl/{{schema}}/JOB/{{schema}}.SEQ.{{job}}.sql',
+				dir: './debug/ddl/{{schema-name}}/JOB/{{schema-name}}.SEQ.{{object-name}}.sql',
 			},
 			table_fill_full: {
-				dir: './debug/ddl/{{schema}}/TABLEFILLFULL/{{schema}}.TBL.{{table}}.FILLFULL.sql',
-				list: ['HR.COUNTRIES', 'HR.JOBS'],
+				dir: './debug/ddl/{{schema-name}}/TABLEFILLFULL/{{schema-name}}.TBL.{{object-name}}.FILLFULL.sql',
+				list: ['HR.EMPLOYEES'],
 			},
 			table_fill_demo: {
-				dir: './debug/ddl/{{schema}}/TABLEFILLDEMO/{{schema}}.TBL.{{table}}.FILLDEMO.sql',
+				dir: './debug/ddl/{{schema-name}}/TABLEFILLDEMO/{{schema-name}}.TBL.{{object-name}}.FILLDEMO.sql',
 				count: 3,
 				ignore_exists: false
 			},
